@@ -1,5 +1,7 @@
 import {strftime, makeFormatter, makeRelativeFormat, isDayFirst, isThisYear, isYearSeparator} from './utils'
 
+const absoluteTimeThreshold = 5 // days
+
 export default class RelativeTime {
   date: Date
   locale: string
@@ -29,7 +31,7 @@ export default class RelativeTime {
     const min = Math.round(sec / 60)
     const hr = Math.round(min / 60)
     const day = Math.round(hr / 24)
-    if (ms >= 0 && day < 30) {
+    if (ms >= 0 && day < absoluteTimeThreshold) {
       return this.timeAgoFromMs(ms)
     } else {
       return null
@@ -42,7 +44,7 @@ export default class RelativeTime {
     const min = Math.round(sec / 60)
     const hr = Math.round(min / 60)
     const day = Math.round(hr / 24)
-    if (ms >= 0 && day < 30) {
+    if (ms >= 0 && day < absoluteTimeThreshold) {
       return this.timeUntil()
     } else {
       return null
